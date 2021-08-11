@@ -7,7 +7,28 @@ using System.Threading.Tasks;
 
 namespace Movie.Services
 {
-    public class MasterMovieService
+    public interface IMasterMovieService
+    {
+        //GetAll
+        IEnumerable<MasterMovie> GetAll();
+
+        // GetById
+        MasterMovie GetById(int id);
+
+        // AddMovie
+        MasterMovie AddMovie(MasterMovie item);
+
+        // GetEditMovie
+        MasterMovie GetEditMovie(int id);
+
+        // PostEditMovie
+        MasterMovie PostEditMovie(MasterMovie item);
+
+        // Delete
+        MasterMovie DeleteMovie(int id);
+    }
+
+    public class MasterMovieService : IMasterMovieService
     {
         private readonly MovieContext _movieContext;
 

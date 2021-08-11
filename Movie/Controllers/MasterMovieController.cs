@@ -11,12 +11,12 @@ namespace Movie.Controllers
     public class MasterMovieController : Controller
     {
         private readonly MovieContext _movieContext;
-        private readonly MasterMovieService _masterMovieService;
-        public MasterMovieController(MovieContext movieContext)
+        private readonly IMasterMovieService _masterMovieService;
+        public MasterMovieController(MovieContext movieContext, IMasterMovieService masterMovieService)
         {
             //Dependency
             _movieContext = movieContext;
-            _masterMovieService = new MasterMovieService(_movieContext);
+            _masterMovieService = masterMovieService;
 
         }
         // GET: MasterMovieController

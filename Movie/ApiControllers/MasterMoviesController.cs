@@ -20,12 +20,12 @@ namespace Movie.ApiControllers
         //}
 
         private readonly MovieContext _movieContext;
-        private readonly MasterMovieService _masterMovieService;
+        private readonly IMasterMovieService _masterMovieService;
 
-        public MasterMoviesController(MovieContext movieContext)
+        public MasterMoviesController(MovieContext movieContext, IMasterMovieService masterMovieService)
         {
             _movieContext = movieContext;
-            _masterMovieService = new MasterMovieService(_movieContext);
+            _masterMovieService = masterMovieService;
         }
         [Route("getall")]
         public IEnumerable<MasterMovie> GetAll()

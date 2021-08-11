@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Movie.EntityFramework;
+using Movie.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,10 @@ namespace Movie
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            //register interface class
+            //services.AddSingleton<IEmployeeRepository, MockEmployeeRepository>();
+            services.AddTransient<IMasterMovieService, MasterMovieService>();
 
             services.AddDbContext<MovieContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
         }
