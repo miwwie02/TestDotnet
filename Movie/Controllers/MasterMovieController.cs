@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Movie.EntityFramework;
 using Movie.Models;
+using Movie.Services;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -10,23 +11,26 @@ namespace Movie.Controllers
     public class MasterMovieController : Controller
     {
         private readonly MovieContext _movieContext;
+        private readonly MasterMovieService _masterMovieService;
         public MasterMovieController(MovieContext movieContext)
         {
             //Dependency
             _movieContext = movieContext;
+            _masterMovieService = new MasterMovieService(_movieContext);
+
         }
         // GET: MasterMovieController
         public ActionResult Index()
         {
-            var movies = _movieContext.MasterMovies.ToList();
+            var movies = _masterMovieService.GetAll();
             return View(movies);
         }
 
         // GET: MasterMovieController/Details/5
-        public ActionResult Details(int id)
-        {
-            return View();
-        }
+        //public ActionResult Details(int id)
+        //{
+        //    return View();
+        //}
 
         // GET: MasterMovieController/Create
         public ActionResult Create()
@@ -37,24 +41,22 @@ namespace Movie.Controllers
         // POST: MasterMovieController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(MasterMovie item)
+        public ActionResult Create(MasterMovie item)
         {
             if (ModelState.IsValid)
             {
-                _movieContext.Add(item);
-                await _movieContext.SaveChangesAsync();
-
-                return RedirectToAction("Index");
+                _masterMovieService.AddMovie(item);
+            return RedirectToAction("Index");
             }
 
             return View(item);
         }
 
         // GET: MasterMovieController/Edit/5
-        public async Task<ActionResult> Edit(int id)
+        public ActionResult Edit(int id)
         {
-            MasterMovie item = await _movieContext.MasterMovies.FindAsync(id);
-            if(item == null)
+            MasterMovie item = _masterMovieService.GetEditMovie(id);
+            if (item == null)
             {
                 return NotFound();
             }
@@ -64,13 +66,11 @@ namespace Movie.Controllers
         // POST: MasterMovieController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit(int id, MasterMovie item)
+        public ActionResult Edit(MasterMovie item)
         {
             if (ModelState.IsValid)
             {
-                _movieContext.Update(item);
-                await _movieContext.SaveChangesAsync();
-
+                _masterMovieService.PostEditMovie(item);
                 return RedirectToAction("Index");
             }
 
@@ -85,16 +85,9 @@ namespace Movie.Controllers
 
         // POST: MasterMovieController/Delete/5
 
-        public async Task<ActionResult> Delete(int id)
+        public ActionResult Delete(int id)
         {
-            MasterMovie item = await _movieContext.MasterMovies.FindAsync(id);
-            if (item != null)
-            {
-                _movieContext.MasterMovies.Remove(item);
-                await _movieContext.SaveChangesAsync();
-            }
-            
-
+            _masterMovieService.DeleteMovie(id);
             return RedirectToAction("Index");
         }
     }
