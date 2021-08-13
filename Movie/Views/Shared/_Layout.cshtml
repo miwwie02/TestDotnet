@@ -36,7 +36,6 @@
         </div>
 
         <!-- Navbar -->
-        
         <!-- /.navbar -->
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -75,7 +74,7 @@
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
                              with font-awesome or any other icon font library -->
-                        
+
                         <li class="nav-item">
                             <a href="@Url.Action("Index","Home")" class="nav-link">
                                 <i class="nav-icon fas fa-th"></i>
@@ -92,12 +91,12 @@
                                 </p>
                             </a>
                         </li>
-                        
-                        
-                        
-                        
+
+
+
+
                         <li class="nav-header">Admin</li>
-                        
+
                         <li class="nav-item">
                             <a href="pages/gallery.html" class="nav-link">
                                 <i class="nav-icon far fa-image"></i>
@@ -106,12 +105,12 @@
                                 </p>
                             </a>
                         </li>
-                        
-                        
-                        
-                        
-                        
-                        
+
+
+
+
+
+
 
                     </ul>
                 </nav>
@@ -128,6 +127,7 @@
                     <div class="row mb-2">
                         <div class="col">
                             @RenderBody()
+
                         </div><!-- /.col -->
                     </div><!-- /.row -->
                 </div><!-- /.container-fluid -->
@@ -136,7 +136,7 @@
             <!-- Main content -->
             <section class="content">
                 <div class="container-fluid">
-                    
+
                 </div><!-- /.container-fluid -->
             </section>
             <!-- /.content -->
@@ -191,5 +191,7 @@
     <script src="~/AdminLTE-3.1.0/dist/js/demo.js"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
     <script src="~/AdminLTE-3.1.0/dist/js/pages/dashboard.js"></script>
+    @RenderSection("Scripts", required: false)
 </body>
 </html>
+
